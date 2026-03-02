@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=login" />
+<link href="/css/header.css" rel="stylesheet" />
+<link href="/css/scoutsystem.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+<title>Insert title here</title>
+
+</head>
+<body>
+
+<div th:replace="~{'fragments/employerHeader' :: EmployerHeader}"></div>
+
+<table>
+     <thead>
+    <tr>
+      <th>ID</th>
+      <th>編集</th>
+      <th>タイトル</th>
+      <th>会社名</th>
+      <th>会社ID</th>
+      <th>勤務地タイプ</th>
+      <th>雇用形態</th>
+      <th>勤務時間</th>
+      <th>仕事内容</th>
+      <th>資格</th>
+      <th>その他資格</th>
+      <th>休日</th>
+      <th>給与</th>
+      <th>住所</th>
+      <th>電話番号</th>
+      <th>作成日時</th>
+      <th>最終更新日</th>
+    </tr>
+  </thead>
+    <tbody>
+  <tr th:each="job : ${jobs}">
+    <td th:text="${job.id}"></td>
+    <td style="display: flex; gap: 10px;">
+    <a th:href="@{/jobs/edit/{id}(id=${job.id})}">編集</a>
+    <form th:action="@{/jobs/deleteJob/{id}(id=${job.id})}" th:method="post"
+    th:onsubmit="return PredeleteConfirm();">
+    <button style="cursor: pointer;">削除</button>
+    </form>
+    <script th:inline="javascript">
+    	function PredeleteConfirm() {
+    		var jobtitle = /*[[${job.title}]]*/ "job title";
+    		var jobid = /*[[${job.id}]]*/ "job id";
+    		return confirm('id: ' + jobid + ' タイトル: ' + jobtitle + ' この内容を削除しますか？');
+    	}
+    </script>
+    </td>
+    <td th:text="${job.title}"></td>
+    <td th:text="${job.companyName}"></td>
+    <td th:text="${job.companyId}"></td>
+    <td th:text="${job.locationType}"></td>
+    <td th:text="${job.employmentType}"></td>
+    <td th:text="${job.worktime}"></td>
+    <td th:text="${job.jobDescription}"></td>
+    <td th:text="${job.qualificationType}"></td>
+    <td th:text="${job.otherqualification}"></td>
+    <td th:text="${job.holidayType}"></td>
+    <td th:text="${job.salary}"></td>
+    <td th:text="${job.address}"></td>
+    <td th:text="${job.tel}"></td>
+    <td th:text="${#temporals.format(job.createdAt, 'yyyy/MM/dd')}"></td>
+    <td th:text="${#temporals.format(job.updatedAt, 'yyyy/MM/dd')}"></td>
+  </tr>
+</tbody>
+
+</table>
+</body>
+</html>

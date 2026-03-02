@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<header th:fragment="EmployerHeader">
+ <div class="bar">
+ <div class="logo"><h1><a th:href="@{/toppage}">KyŪi</a></h1></div>
+ <div class="rightbarcontents">
+ <div class="login">
+ <div class="loginIcon"> 
+ <span class="material-symbols-outlined">
+login
+</span>
+ </div>
+ <a th:href="@{/login/{isEmployer}(isEmployer=employer)}">ログイン</a>
+ 
+ </div>
+ <div class="ToScoutSystem list">
+ <a class="Toscoutlist" th:href="@{/employer/scoutSystem}" style="color: white;">スカウト</a>
+ </div>
+ <div class="ToOfferView list">
+ <a class="ToOfferlist" th:href="@{/employerOfferlist}" style="color: white;">オファーリスト</a>
+ </div>
+ <div class="ToPostingView list">
+ <a class="ToPostinglist" th:href="@{/jobs/new}" style="color: white;">求人を公開</a>
+ </div>
+ <div class="ToEditView list">
+ <a class="ToEditlist" th:href="@{/jobs/jobPostlist}" style="color: white;">求人リスト</a>
+ </div>
+ </div>
+ </div>
+ </header>
+</body>
+</html>

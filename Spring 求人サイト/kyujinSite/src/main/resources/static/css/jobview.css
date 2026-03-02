@@ -1,0 +1,420 @@
+@charset "UTF-8";
+
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+  /* Reset & base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: #f7faff;
+    margin: 20px;
+    color: #1a2935;
+  }
+  
+  #jobviewForm {
+  	max-width: 1000px;
+  	margin: 0 auto;
+  	height: 100px;
+  }
+  a {
+    text-decoration: none;
+  }
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+
+  /* レイアウト */
+  .wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    gap: 24px;
+    justify-content: start;
+    min-height: 600px;
+    position: relative;
+  }
+
+  /* 左リスト */
+  .job-list {
+    flex: 1 1 380px;
+  }
+  .job-list-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #2c7be5;
+    margin-bottom: 8px;
+  }
+  
+  .job-list-subtitle {
+    font-size: 0.85rem;
+    color: #6c7a93;
+    margin-bottom: 12px;
+  }
+
+  /* 求人カード */
+  .job-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: background-color 0.25s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+    width: 400px;
+  }
+  .job-card:hover {
+    box-shadow: 0 6px 15px rgba(44, 123, 229, 0.25);
+  }
+  .job-card.selected {
+    background-color: #d8e7ff;
+    border-color: #2c7be5;
+    box-shadow: 0 8px 22px rgba(44, 123, 229, 0.35);
+  }
+  .job-card .title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #0f2137;
+    margin-bottom: 6px;
+  }
+  .job-card .company {
+    font-size: 0.88rem;
+    color: #3e5060;
+    margin-bottom: 8px;
+  }
+  .job-card .info-icons {
+    font-size: 0.85rem;
+    color: #4a6572;
+    margin-bottom: 8px;
+  }
+  .job-card .info-icons span {
+    display: inline-block;
+    align-items: center;
+    gap: 4px;
+    margin-right: 14px;
+  }
+ 
+  .job-card .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .job-card .tag {
+    background: #e1eaff;
+    color: #2c7be5;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(44, 123, 229, 0.15);
+  }
+
+  /* 右詳細 */
+  #job-detail {
+  	position: absolute;
+  	right: 52%;
+  }
+  .job-detail {
+    flex: 1.6 1 650px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(30, 60, 90, 0.1);
+    padding: 24px 28px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    display: none;
+    max-height: 910px;
+    display: flex;
+    overflow: scroll;
+    position: fixed;
+    top: 230px;
+    transition: top 0.2s;
+    width: 35%;
+    
+  }
+  .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 20px;
+    color: #8b8b8b;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  .close-btn:hover {
+    background-color: #f0f0f0;
+    color: #2c7be5;
+  }
+
+  .detail-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #2c7be5;
+    margin-bottom: 8px;
+  }
+  
+  .update-date {
+    font-size: 0.85rem;
+    color: #6c7a93;
+    margin-bottom: 18px;
+  }
+  .detail-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #0f2137;
+    margin-bottom: 6px;
+  }
+  .detail-company {
+    font-size: 1rem;
+    color: #3e5060;
+    margin-bottom: 16px;
+  }
+
+  /* 応募ボタン＆お気に入り */
+  .action-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .apply-btn {
+    background: #ff8c00;
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: 6px;
+    box-shadow: 0 4px 9px #ff8c00cc;
+    transition: background-color 0.3s ease;
+  }
+  .apply-btn:hover {
+    background: #e07a00;
+  }
+  .favorite-btn {
+    width: 120px;
+    height: 40px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s ease;
+  }
+ 
+  .favorite-btn.active {
+    border-color: #ff8c00;
+  }
+ 
+  .favorite-btn:hover {
+    border-color: #ff8c00;
+  }
+ 
+  .external-link-btn {
+    margin-left: auto;
+    font-size: 0.85rem;
+    color: #4a6572;
+    border: 1px solid #c1c1c1;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: #fafafa;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .external-link-btn:hover {
+    background: #e1eaff;
+    border-color: #2c7be5;
+    color: #2c7be5;
+  }
+
+  /* イメージ */
+  .job-image {
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background: #f5f7fa;
+  }
+
+  /* 住所・給与・雇用形態 */
+  .detail-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 26px;
+    font-size: 0.9rem;
+    color: #4a6572;
+    margin-bottom: 20px;
+  }
+  .detail-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 130px;
+  }
+
+  /* タグ */
+  .detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .detail-tags .tag {
+    background: #e1eaff;
+    color: #2c7be5;
+    padding: 7px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(44, 123, 229, 0.15);
+  }
+
+  /* 仕事内容 */
+  .job-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #333;
+    overflow-y: auto;
+  }
+
+  /* スクロールバー */
+  .job-list::-webkit-scrollbar,
+  .job-detail::-webkit-scrollbar,
+  .job-description::-webkit-scrollbar {
+    width: 8px;
+  }
+  .job-list::-webkit-scrollbar-thumb,
+  .job-detail::-webkit-scrollbar-thumb,
+  .job-description::-webkit-scrollbar-thumb {
+    background-color: rgba(44, 123, 229, 0.3);
+    border-radius: 4px;
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 900px) {
+    .wrapper {
+      flex-direction: column;
+    }
+    .job-list {
+    }
+    #job-detail {
+      position: static;
+      display: none;
+      max-height: 500px;
+      width: 100%;
+    }
+    
+    #job-detail-fixed {
+  	position: static;
+  	}
+  }
+  #job-detail.sp {
+  	display: none;
+  	position: static;
+  }
+  
+  .job-list {
+    width: 350px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .job-card.active {
+  background: #dbe9ff;
+  border: 2px solid #3b82f6;
+}
+
+.job-detail {
+  	
+}
+
+.job-detail.active {
+  display: block;
+}
+
+.companyImage img {
+	opacity: 0.9;
+	height: 250px;
+	width: 100%;
+	object-fit: cover;
+}
+
+.pagingButton {
+	display: flex;
+	max-width: 800px;
+	margin: 0 auto;
+	justify-content: start;
+	align-items: center;
+	gap: 10px;
+	margin-top: 20px;
+	
+}
+.TonextPage,.ToprevPage {
+	color: white;
+	border-radius: 5px;
+	font-weight: 320;
+}
+.TonextPage {
+	background-color: tomato;
+	padding: 12px;
+
+}
+.TonextPage::after {
+	content: ">";
+	font-size: 25px;
+	margin-left: 8px;
+	position: relative;
+	top: 1px;
+}
+.ToprevPage {
+	background-color: lightblue;
+	padding: 10px;
+}
+
+.ToprevPage::before {
+	content: "<";
+	font-size: 25px;
+	margin-right: 8px;
+	position: relative;
+	top: 1px;
+}
+
+.search-box {
+	width: 350px;
+	height: 100px;
+    margin-left: 10px;
+}
+.search-box input {
+	padding: 4px;
+}
+#jobviewForm {
+	height: 120px;
+}
+
+.jobviewHeading {
+	margin-top: 8px;
+}
+
+.job-detail .job-description {
+	font-size: 16px;
+}
+
+.feature {
+	font-size: 18px;
+	}
+	

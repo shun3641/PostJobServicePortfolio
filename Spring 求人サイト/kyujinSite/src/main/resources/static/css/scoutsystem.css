@@ -1,0 +1,367 @@
+@charset "UTF-8";
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif, sans-serif;
+    background-color: #F9FAFB;
+    margin: 24px;
+    color: #111827;
+    overflow-X: scroll;
+  }
+  
+  .heading {
+	background: rgb(50,50,50,0.1);
+	font-size: 14px;
+	}
+  h1 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+  /* カード風フォーム */
+  .search-card {
+    background: #fff;
+    padding: 20px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+    max-width: 760px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    min-width: 160px;
+  }
+  label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: #374151;
+  }
+  select {
+    padding: 8px 12px;
+    font-size: 1rem;
+    border: 1.5px solid #D1D5DB;
+    border-radius: 6px;
+    background-color: #fff;
+    transition: border-color 0.2s ease;
+  }
+  select:focus {
+    outline: none;
+    border-color: #2563EB;
+    box-shadow: 0 0 5px #2563EBaa;
+  }
+  /* ボタン */
+  .btn-primary {
+    background-color: #2563EB;
+    color: white;
+    font-weight: 700;
+    border: none;
+    padding: 10px 24px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .btn-primary:hover {
+    background-color: #1E40AF;
+  }
+  /* 検索結果件数 */
+  .result-count {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #374151;
+    max-width: 760px;
+  }
+  /* テーブル */
+  .table-wrapper {
+    max-width: 100vw;
+    overflow-x: auto;
+  }
+  table {
+    width: 760px;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.08);
+    margin-top: 12px;
+  }
+  thead {
+    background: #F3F4F6;
+    font-weight: 700;
+    color: #374151;
+  }
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  tbody tr:hover {
+    background-color: #e4eaf5;
+  }
+  /* tbody tr:nth-child(odd) {
+    background-color: #FAFAFA;
+  } */
+  /* ID と email は薄め */
+  td.id,
+  td.email {
+    color: #6B7280;
+    font-family: monospace;
+    font-size: 13px;
+  }
+  
+  .findUser {
+  	cursor: pointer;
+  	padding: 5px 10px;
+  	margin-left: 8px;
+  }
+  
+  .search-box {
+  	border: 1px solid #dadce0;
+  	border-radius: 5px;
+  	width: 10%;
+  	padding-left: 5px;
+  	padding-top: 10px;
+  	padding-bottom: 10px;
+  	background-color: white;
+  	margin-bottom: 10px;
+  	display: flex;
+  	align-items: center;
+  	gap: 8px;
+  }
+  .material-symbols-outlined.search {
+    
+  	padding-left: 10px;
+  	padding-right: 10px;
+  }
+  
+  .search-box .border-right {
+  	border-right: 1px solid #dadce0;
+  	height: 30px;
+  }
+  /*モーダル画面のCSS*/
+  
+  .layer {
+  background: rgba(0, 0, 0, .2);
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* 追記 */
+  z-index: -1; 
+  opacity: 0;
+  visibility: hidden;
+  }
+
+.modal {
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  min-width: 440px;
+  top: 30%;
+
+  /* 追記 */
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal__inner {
+	position: relative;
+	width: 30%;
+	margin: 0 auto;
+	background-color: rgba(255,255,255,0.9);
+	border-radius: 16px;
+	@media(max-width: 767px) {
+	width: 90%;
+	}
+	
+}
+
+.modal__contents {
+	box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+}
+.modal__content {
+	width: 80%;
+	white-space: wrap;
+	padding: 60px;
+	margin: 0 auto;
+}
+  .layer.is-open {
+  z-index: 999;
+  opacity: 1;
+  visibility: visible;
+}
+
+.layer.is-open .modal{
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal__button-wrap {
+  position: absolute;
+  right: 10%;
+  top: 10px;
+  display: inline-flex;
+}
+
+.close-button {
+  position: relative;
+  width: 39px;
+  height: 39px;
+  background: orange;
+  border-radius: 50%;
+  padding: 0;
+  border: transparent;
+  cursor: pointer;
+}
+
+.close-button span {
+  width: 25px;
+  height: 2px;
+  background: #fff;
+  display: inline-block;
+  position: absolute;
+  left: calc(50% - 12px);
+  top: 50%;
+  border-radius: 20px;
+}
+
+.close-button span:nth-child(1) {
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.close-button span:nth-child(2) {
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.scoutexecute {
+	margin-top: 20px;
+}
+
+.styled {
+  border: 0;
+  line-height: 2.5;
+  padding: 0 20px;
+  font-size: 1rem;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  border-radius: 10px;
+  background-color: orange;
+  background-image: linear-gradient(
+    to top left,
+    rgb(0 0 0 / 0.2),
+    rgb(0 0 0 / 0.2) 30%,
+    transparent
+  );
+  box-shadow:
+    inset 2px 2px 3px rgb(255 255 255 / 0.6),
+    inset -2px -2px 3px rgb(0 0 0 / 0.6);
+}
+
+.styled:hover {
+  opacity: 0.85;
+}
+
+.styled:active {
+  box-shadow:
+    inset -2px -2px 3px rgb(255 255 255 / 0.6),
+    inset 2px 2px 3px rgb(0 0 0 / 0.6);
+}
+
+.scout-button{
+	cursor: pointer;
+	border: 1px solid black;
+	text-align: center;
+}
+
+.modal {
+  transform: translateY(30px);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.layer.is-active .modal {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/*オファーリスト*/
+table th {
+
+	border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* ===== table base ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+/* ===== header ===== */
+table thead {
+    background-color: #f7f8fa;
+}
+
+table thead th {
+    padding: 12px 10px;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    white-space: nowrap;
+}
+
+/* ===== body ===== */
+table tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: top;
+    color: #333;
+    
+}
+
+/* 行ホバー */
+table tbody tr:hover {
+    background-color: #e4eaf5;
+}
+
+/* ===== message column ===== */
+table td.message {
+    max-width: 420px;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* ===== status ===== */
+table td.status {
+    font-weight: 600;
+    color: #2563eb; /* 青 */
+    white-space: nowrap;
+}
+
+/* ===== last row border remove ===== */
+table tbody tr:last-child td {
+    border-bottom: none;
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <meta name="_csrf" th:content="${_csrf.token}" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=login" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+
+<link href="/css/header.css" rel="stylesheet" />
+<link href="/css/scoutsystem.css" rel="stylesheet" />
+<link href="/css/jobview.css" rel="stylesheet" />
+
+<title>求人一覧＆詳細</title>
+
+</head>
+<body>
+<div th:replace="~{'fragments/header' :: siteHeader}"></div>
+<main>
+	<form name="search" th:method="post" th:action="@{/jobview/search}" id="jobviewForm"
+	style="display: flex;">
+	<div class="Form-Item search-card">
+		<div class="field">
+	    <label class="title">-- 勤務地 --</label>
+	    <select name="workplace" class="work-select" id="work-selectOne">
+	    <option th:each="cite: ${cites}" th:text="${cite}"></option>
+	  			<!-- <option value=""text="${scoutform.workplace != null and scoutform.workplace != '' 
+	            ? scoutform.workplace 
+	            : '-- 希望勤務地 --'}"></option> -->
+		</select>
+		</div>
+	
+	<div class="Form-Item field">
+	<label class="title">-- 職種 --</label>
+	    	<select class="work-select" id="JobSelectOne" name="jobtype">    	
+	    	<option th:each="jobtype :${jobtypes}" th:text="${jobtype}"></option>
+	  			<!-- <option value="" th:text="${scoutform.job != null and scoutform.job != '' 
+	            ? scoutform.job 
+	            : '-- 経験職種 --'}"></option> -->
+	            
+				</select>
+	</div>
+	
+	<div class="Form-Item field">
+	<label class="title">-- 雇用形態 --</label>
+			<select name="period" class="work-select" id="periodOne">
+			<option th:each="employmentType :${employmentTypes}" th:text="${employmentType}"></option>
+	           
+			</select>
+	</div>
+	</div>
+	<div class="search-box">
+	<div style="margin-top: 20px;">
+	<span class="material-symbols-outlined search">
+	search
+	</span>
+	<input>
+	<span class="border-right"></span>
+	<button type="submit" class="findUser">探す</button>
+	</div>
+	</div>
+	</form>
+<div class="wrapper">
+  <aside class="job-list" aria-label="求人一覧">
+    <div class="job-list-header">
+      あなたにマッチした求人
+    </div>
+    <div class="job-list-subtitle">あなたの検索履歴や閲覧履歴からマッチした未読の求人をお届けします。<br>2026/02/02更新</div>
+	
+    <article class="job-card card" tabindex="0" role="button" aria-pressed="true" th:data-id="${job.id}"
+    th:each="job :${jobs}">
+    <h3 class="title" th:text="${job.title}">フィールドセールス／営業未経験大歓迎！／高年収／完全未経験OK！／169</h3>
+    <p class="company" th:text="${job.companyName}">BBSインターナショナル株式会社</p>
+    
+    <div class="info-icons">
+    <span th:text="${job.address}">
+	 大阪府 大阪市 北区
+    </span>
+    <span th:text="${job.salary}">
+     月給26万5,000円～45万円
+    </span>
+   
+    <span th:text="${job.employmentType}">正社員</span></div>
+    <div class="tags">
+    <span class="tag" th:each="qualification :${job.qualificationType}" th:text="${qualification}">未経験OK
+    </span>
+    </div>
+    <div class="container"></div>
+    </article>
+    
+  </aside>
+	
+  <section id="job-detail" aria-label="求人詳細表示" tabindex="0" style="display: flex;">
+
+    <div class="job-detail" id="job-detail-fixed">
+    <button class="close-btn" aria-label="求人詳細を閉じる" title="閉じる">×</button>
+    <div class="detail-header">
+      あなたにマッチした求人
+    </div>
+    <div class="update-date" id="detailUpdateDate" th:text="${#temporals.format(jobs[0].updatedAt, 'yyyy/MM/dd 更新')}">2026/02/02更新</div>
+    <h2 class="detail-title" id="detailTitle" th:text="${jobs[0].title}">フィールドセールス／営業未経験大歓迎！／高年収／完全未経験OK！／169</h2>
+    <div class="detail-company" id="detailCompany" th:text="${jobs[0].companyName}">BBSインターナショナル株式会社</div>
+
+    <div class="action-area">
+      <a href="#" target="_blank" rel="noopener" class="apply-btn" id="applyButton">応募画面へ進む</a>
+      <button class="favorite-btn" id="favoriteButton" aria-pressed="false" aria-label="お気に入りに追加">
+      お気に入りに追加
+      </button>
+      <a href="#" target="_blank" rel="noopener" class="external-link-btn" id="externalLinkButton">別タブで見る</a>
+    </div>
+    <div class="companyImage">    
+	<img src="https://picsum.photos/200/300">
+    </div>
+    <div class="detail-info" id="detailInfo">
+    <div class="detail-info-item" th:text="${jobs[0].address}"
+    id="detail-address">
+	大阪府 大阪市 北区
+    </div>
+    <div class="detail-info-item" th:text="${jobs[0].salary}" id="detail-sarary">
+    月給26万5,000円～45万円
+    </div>
+    <div class="detail-info-item" th:text="${jobs[0].employmentType}"
+    id="employmentType">
+     正社員</div>
+     </div>
+
+    <div class="detail-tags" id="detailTags">
+    <div class="detailTags-child">
+    <span class="tag"  th:each="qualification: ${jobs[0].qualificationType}" 
+    th:text="${qualification}">
+    学歴不問</span>
+    </div>
+    
+    </div>
+    <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6561.916260621377!2d135.4918962763109!3d34.6810061842683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000e700311eaacf%3A0x6684127957330716!2zRklESUHjgqLjgrjjg6Pjgrnjg4gg5pys55S644Kq44OV44Kj44K5!5e0!3m2!1sja!2sjp!4v1770271381111!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    <section>
+		<h2 class="jobviewHeading">仕事内容</h2>
+	    <div class="job-description" id="jobDescription" tabindex="0" th:text="${jobs[0].jobDescription}"></div>
+    </section>
+    <section>
+		<h2 class="jobviewHeading">勤務地・交通</h2>
+	    <div class="job-description" tabindex="0" th:text="${jobs[0].locationType}"></div>
+    </section>
+    <section>
+		<h2 class="jobviewHeading">給与・報酬</h2>
+	    <div class="job-description" tabindex="0" th:text="${jobs[0].salary}"></div>
+    </section>
+    <section>
+		<h2 class="jobviewHeading">雇用形態</h2>
+	    <div class="job-description" tabindex="0" th:text="${jobs[0].employmentType}"></div>
+    </section>
+    <section>
+		<h2 class="jobviewHeading">勤務時間</h2>
+	    <div class="job-description" tabindex="0" th:text="${jobs[0].worktime}"></div>
+    </section>
+    <section>
+		<h2 class="jobviewHeading">求人の特徴</h2>
+	    <div class="job-description feature" tabindex="0" th:text="|${jobs[0].locationType}  ${jobs[0].salary}  ${jobs[0].employmentType}|"></div>
+    </section>
+    </div>
+    </section>
+</div>
+<div class="pagingButton">
+  <a  th:if="${prevPage!=0}" th:href="@{/jobview/showJoblist(page=${prevPage})}"
+  class="ToprevPage">前のページへ</a>
+  <a th:if="!${isEndPage}" th:href="@{/jobview/showJoblist(page=${nextPage})}"
+  class="TonextPage">次のページへ</a>  
+</div>
+
+  </main>
+<script src="/js/jobSelect.js"></script>
+</body>
+</html>

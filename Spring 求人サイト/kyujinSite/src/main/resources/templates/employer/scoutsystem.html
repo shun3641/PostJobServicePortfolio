@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=login" />
+<link href="/css/header.css" rel="stylesheet" />
+<link href="/css/scoutsystem.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+<title>Insert title here</title>
+
+</head>
+<body>
+<div th:replace="~{'fragments/employerHeader' :: EmployerHeader}"></div>
+<h2>スカウトシステム</h2>
+<form id="ScoutForm" th:action="@{/employer/filter}" method="post">
+<div class="Form-Item search-card">
+	<div class="field">
+    <label class="title">-- 希望勤務地 --</label>
+    <select name="workplace" class="work-select" id="work-selectOne">
+  			<!-- <option value=""text="${scoutform.workplace != null and scoutform.workplace != '' 
+            ? scoutform.workplace 
+            : '-- 希望勤務地 --'}"></option> -->
+	</select>
+	</div>
+
+<div class="Form-Item field">
+<label class="title">-- 経験職種 --</label>
+    	<select name="job" class="work-select" id="JobSelectOne">
+  			<!-- <option value="" th:text="${scoutform.job != null and scoutform.job != '' 
+            ? scoutform.job 
+            : '-- 経験職種 --'}"></option> -->
+            
+			</select>
+</div>
+
+<div class="Form-Item field">
+<label class="title">-- 年数 --</label>
+		<select name="period" class="work-select" id="periodOne">
+  			<!-- <option value="" th:text="${scoutform.period != null and scoutform.period != '' 
+            ? scoutform.period 
+            : '-- 年数 --'}"></option> -->
+           
+		</select>
+</div>
+</div>
+<div class="search-box">
+<span class="material-symbols-outlined search">
+search
+</span>
+<span class="border-right"></span>
+<button type="submit" class="findUser">探す</button>
+</div>
+</form>
+<p th:text="${ResultMessage}" style="color: red;"></p>
+<script th:inline="javascript">
+document.addEventListener('DOMContentLoaded', () => {
+	var workplace = /*[[${scoutform.workplace}]]*/ "デフォルトユーザー";
+	const workSelectOne = document.getElementById('work-selectOne');
+	
+	var job = /*[[${scoutform.job}]]*/ "デフォルトユーザー";
+	
+	var period = /*[[${scoutform.period}]]*/ "デフォルトユーザー";
+	console.log(job);﻿﻿
+	console.log(workSelectOne.value);
+	if(workplace!=null) {
+		workSelectOne.value=workplace;
+		console.log("workplace---" + workplace);
+		
+		console.log(workSelectOne);
+	}
+	if(job!=null) {
+		
+		const JobSelectOne = document.getElementById('JobSelectOne');
+		JobSelectOne.value=job;
+		
+	}
+	if(period!=null) {
+
+		const periodOne = document.getElementById("periodOne");
+		periodOne.value=period;
+		
+	}	
+	});
+	</script>
+<table>
+    <thead>
+        <tr>
+			<th>スカウト
+			</th>
+            <th>ID</th>
+            <th>名前</th>
+            <th>email</th>
+            <th>生年月日</th>
+            <th>性別</th>
+            <th>希望勤務先</th>
+            <th>カテゴリー</th>
+            <th>経験職種</th>
+            <th>仕事期間</th>
+            <th>転職希望日</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="user : ${filteredUser}">
+        	<td>
+        	<form id="scoutButtonForm" th:action="@{/employer/offer/{id}(id=${user.id})}" 
+        	onsubmit="return confirmSubmit();" method="post">
+			<input type="hidden" name="id">
+			<p class="scout-button">スカウト</p>
+			<div class="layer js-modal">
+	  <div class="modal" data-aos="fade-up" data-aos-duration="1000">
+	    <div class="modal__inner">
+	     <!-- ×ボタン追記 -->
+	     <div class="modal__button-wrap">
+	       <button type="button" class="close-button js-close-button" id="closeButton">
+	         <span></span>
+	         <span></span>
+	       </button>
+	      </div>
+	      <div class="modal__contents">
+	        <div class="modal__content">
+	          <div><b th:text="${user.name}"></b>さんにオファーを送ります。オファー文を記載してください。></div>
+	          <div>オファー文</div>
+	          <textarea name="offerdesc" class="offerDesc" rows="10" cols="30" maxlength="1000" style="padding-top: 5px;padding-left: 2px;">ぜひわが社にいらしてください。あなたの力が必要です。</textarea>
+	          <div class="scoutexecute"><button type="submit" class="favorite styled" id="scoutExecute">オファーを送る</button></div>
+	          <script>
+					function confirmSubmit() {
+						const offerDesc = document.getElementsByClassName('offerDesc')[0];
+					    return confirm(offerDesc.value + 'この内容で登録しますか？');
+					}
+			</script>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	  </div>
+			<div class="layer js-modal">
+	  <div class="modal" data-aos="fade-up" data-aos-duration="1000">
+	    <div class="modal__inner">
+	     <!-- ×ボタン追記 -->
+	     <div class="modal__button-wrap">
+	       <button type="button" class="close-button js-close-button" id="closeButton">
+	         <span></span>
+	         <span></span>
+	       </button>
+	      </div>
+	      <div class="modal__contents">
+	        <div class="modal__content">
+	          <div><b th:text="${user.name}"></b>さんにオファーを送ります。オファー文を記載してください。></div>
+	          <div>オファー文</div>
+	          <textarea name="offerdesc" class="offerDesc" rows="10" cols="30" maxlength="1000" style="padding-top: 5px;padding-left: 2px;">ぜひわが社にいらしてください。あなたの力が必要です。</textarea>
+	          <div class="scoutexecute"><button type="submit" class="favorite styled" id="scoutExecute">オファーを送る</button></div>
+	          <script>
+					function confirmSubmit() {
+						const offerDesc = document.getElementsByClassName('offerDesc')[0];
+					    return confirm(offerDesc.value + 'この内容で登録しますか？');
+					}
+			</script>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+			
+			</form>
+			</td>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${#dates.format(user.birthday, 'yyyy年MM月dd日')}"></td>
+            <td th:text="${user.gender}"></td>
+            <td th:text="${user.workplaces}" class="trim"></td>
+            <td th:text="${user.jobcategories}" class="trim"></td>
+            <td th:text="${user.experiencedjob}" class="trim"></td>
+            <td th:text="${user.years}" class="trim"></td>
+            <td th:text="${user.changejobday}"></td>
+        </tr>
+    </tbody>
+</table>
+
+ 
+<script type="module" src="/js/scoutsystem.js"></script>
+</body>
+</html>

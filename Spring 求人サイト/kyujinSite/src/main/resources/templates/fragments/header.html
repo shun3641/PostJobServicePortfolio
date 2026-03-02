@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<header th:fragment="siteHeader">
+ <div class="bar">
+ <div class="logo"><h1><a th:href="@{/toppage}">KyŪi</a></h1></div>
+ <div class="rightbarcontents">
+ <div class="login">
+ <div class="loginIcon"> 
+ <span class="material-symbols-outlined">
+login
+</span>
+ </div>
+ <a th:href="@{/login/{isEmployer}(isEmployer=user)}">ログイン</a>
+ </div>
+ <div class="ForThinkEmployment">
+ <a th:href="@{/login/{isEmployer}(isEmployer=employer)}">採用をお考えの方はこちら</a>
+ </div>
+ </div>
+ </div>
+ </header>
+</body>
+</html>

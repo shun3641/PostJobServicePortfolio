@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+a {
+	text-decoration: none;
+}
+body {
+	overflow-x: hidden;
+}
+header {
+	margin-bottom: 30px;
+}
+.logo {
+	width: 20%;
+	height: 30px;
+}
+.logo h1{
+	font-size: 20px;
+	font-weight: 400;
+}
+
+.logo a {
+	color: white;
+	text-decoration: none;
+}
+.bar {
+	display: flex;
+	padding: 10px;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #0d8ebf;
+	color: white;
+}
+
+.rightbarcontents {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	color: white;
+	}
+
+.login {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.loginIcon > .material-symbols-outlined {
+	font-size: 2em;
+	position: relative;
+	top: 3px;
+}
+.login a {
+	color: white;
+	font-size: 0.8em;
+	text-decoration: none;
+}
+.ForThinkEmployment {
+	border: 1px solid white;
+	border-radius: 5px;
+	padding: 5px 10px;
+	font-size: 0.7em;
+}
+
+.ForThinkEmployment a {
+	color: white;
+	text-decoration: none;
+}
+
+/*雇用者ヘッダー*/
+.list a {
+	display: inline-block;
+    color: white;
+    padding-bottom: 3.8px;
+    font-size: 14px;
+    text-decoration: none;
+}

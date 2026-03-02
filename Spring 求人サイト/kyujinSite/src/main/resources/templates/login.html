@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ログイン</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=login" />
+<link th:href="@{/css/login.css}" rel="stylesheet" type="text/css">
+<link href="/css/header.css" rel="stylesheet" />
+</head>
+
+<body>
+<div th:replace="~{'fragments/header' :: siteHeader}"></div>
+  <div class="container">
+    <div class="wrapper">
+      <form th:action="@{/login}" method="post" class="form-signin">
+        <h3 class="form-signin-heading">Kyuiのアプリへようこそ</h3>
+        <h3 class="form-signin-greeting">まずはサインインして、はじめましょう。</h3>
+        <hr class="colorgraph">
+        <br>
+        <div th:if="${param.error}">
+          <div th:if="${session.containsKey('SPRING_SECURITY_LAST_EXCEPTION')}">
+            <div class="alert alert-danger">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+              <span th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+            </div>
+          </div>
+        </div>
+        <input type="text" name="email" placeholder="メールアドレス" class="form-control" required />
+        <input type="password" name="password" placeholder="パスワード" class="form-control" required />
+        <button class="btn form-control btn-outline-primary" name="Submit" value="Login" type="Submit">Login</button>
+        <div><a th:if="${isEmployer}==user" th:href="@{/user/mailverifications}">新規登録</a></div>
+        <div><a th:if="${isEmployer}==employer" th:href="@{/employer/mailverifications}">新規登録</a></div>
+      <div style="margin-top: 10px;"><a th:href="@{/toppage}">トップページに戻る</a></div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

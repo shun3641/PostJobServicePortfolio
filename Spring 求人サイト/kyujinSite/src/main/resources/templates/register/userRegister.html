@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=login" />
+<link href="/css/header.css" rel="stylesheet" />
+<link href="/css/userRegister.css" rel="stylesheet" />
+
+<title>Insert title here</title>
+</head>
+<body>
+<div th:replace="~{'fragments/header' :: siteHeader}"></div>
+<h1>6桁の番号を認証しました。</h1>
+<p th:text="${email}"></p>
+<form class="Form" th:object="${registerUser}" th:action="@{/user/createAccount(isEmployer=${isEmployer})}" method="post">
+<input type="hidden" th:field="*{email}">
+ <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="input-error"></div>
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>パスワード
+    </p>
+    <div class="column">
+    <div class="required">
+    <input type="text" class="Form-Item-Input" placeholder="" th:field="*{password}">
+     <span class="placeholder required">パスワード<span class="fontastarisc">*</span></span>
+  	</div>
+  	 <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="input-error"></div>
+  	</div>
+  </div>
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>氏名
+    </p>
+    <div class="column">
+    <div class="required">
+    <input type="text" class="Form-Item-Input" placeholder="" th:field="*{name}">
+     <span class="placeholder required">氏名<span class="fontastarisc">*</span></span>
+  	</div>
+  	 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="input-error"></div>
+  	</div>
+  </div>
+  <div class="Form-Item" th:if="${isEmployer}==employer">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>会社名
+    </p>
+    <div class="column">
+    <div class="required">
+    <input type="text" class="Form-Item-Input" placeholder="" th:field="*{company}">
+     <span class="placeholder required">会社名(株式会社も含む)<span class="fontastarisc">*</span></span>
+  	</div>
+  	 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="input-error"></div>
+  	</div>
+  </div>
+  <div class="Form-Item">
+    <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>生年月日</p>
+    <div class="required">
+    
+    <input id="date" type="hidden" class="Form-Item-Input" placeholder="" value="2000-01-15" th:field="*{birthday}">
+  	<div>
+	  <select id="select_year" name="year"></select>年
+	  <select id="select_month" name="month"></select>月
+	  <select id="select_day" name="day"></select>日
+		</div>
+  	</div>
+  	<div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" th:errorclass="input-error"></div>
+  </div>
+  <div class="Form-Item">
+    <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>性別<span class="fontastarisc">*</span></p>
+	<div class="required">
+	<div class="column">
+  <div class="radioBox">
+  <div>
+    <input type="radio" id="huey" name="drone" value="男性" th:field="*{gender}"/>
+    <label for="huey">男性</label>
+  </div>
+
+  <div>
+    <input type="radio" id="dewey" name="drone" value="女性" th:field="*{gender}"/>   
+    <label for="dewey">女性</label>
+  </div>
+
+  <div>
+    <input type="radio" id="louie" name="drone" value="無回答" th:field="*{gender}"/>
+    <label for="louie">無回答</label>
+  </div>
+  </div>
+        <div th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" th:errorclass="input-error"></div>
+  	</div>
+  	</div>
+  	</div>
+  <div class="Form-Item">
+    <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>希望勤務地<span class="fontastarisc">*</span></p>
+  <div class="column">
+  <div class="workplaces workplace">
+  <div class="required">
+    	<select name="Workplace" class="work-select" id="work-selectOne" th:field="*{workplaces[0]}">
+  			<option value="">-- 希望勤務地 --</option>
+		</select>
+
+		
+	<span class="fontastarisc">*</span>
+	</div>
+	<select name="pets" id="work-selectTwo" th:field="*{workplaces[1]}">
+		  <option value="">-- 希望勤務地 --</option>
+	</select>
+	
+	<select name="pets" id="work-selectThree" th:field="*{workplaces[2]}">
+		  <option value="">-- 希望勤務地 --</option>
+	</select>
+	
+	</div>
+	<div th:if="${#fields.hasErrors('workplaces[0]')}" th:errors="*{workplaces[0]}" th:errorclass="input-error"></div>
+  	</div>
+  	</div>
+    <div class="Form-Item">
+    <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>
+    経験職種<span class="fontastarisc">*</span></p>
+<div class="column">
+<div class="selectBox">
+<div class="required jobDesc">
+    <input id="jobcategoryOne" type="hidden" th:field="*{jobcategories[0]}">
+    <input id="jobInputOne" type="hidden" th:field="*{experiencedjob[0]}">
+    	<select name="job" class="work-select" id="JobSelectOne">
+  			<option value="">-- 経験職種 --</option>
+			</select>
+	<span class="fontastarisc">*</span>
+	</div>	
+	<div class="period jobDesc">
+		<select class="work-select" id="periodOne" th:field="*{years[0]}">
+  			<option value="">-- 年数 --</option>
+		</select>
+		<span class="fontastarisc">*</span>
+	</div>
+</div>
+<div class="selectBox">
+<div class="jobDesc">
+		<input id="jobcategoryTwo" type="hidden" th:field="*{jobcategories[1]}">
+		<input id="jobInputTwo" type="hidden" th:field="*{experiencedjob[1]}">
+		<select name="job" id="JobSelectTwo">
+			  <option value="">-- 経験職種 --</option>
+		</select>
+</div>
+<div class="period">
+		
+		<select class="work-select" id="periodTwo" th:field="*{years[1]}">
+  			<option value="">-- 年数 --</option>
+		</select>
+</div>
+</div>
+<div class="selectBox">
+<div class="jobDesc">
+		<input id="jobcategoryThree" type="hidden" th:field="*{jobcategories[2]}">
+		<input id="jobInputThree" type="hidden" th:field="*{experiencedjob[2]}">
+		<select name="job" id="JobSelectThree">
+			  <option value="">-- 経験職種 --</option>
+		</select>
+	</div>
+	<div class="period">
+		<select class="work-select" id="periodThree" th:field="*{years[2]}">
+  			<option value="">-- 年数 --</option>
+		</select>
+	</div>
+</div>
+<div th:if="${#fields.hasErrors('experiencedjob[0]')}" th:errors="*{experiencedjob[0]}" th:errorclass="input-error"></div>
+<div th:if="${#fields.hasErrors('years[0]')}" th:errors="*{years[0]}" th:errorclass="input-error"></div>
+</div>
+  </div>
+<div class="Form-Item">
+    <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>転職希望時期<span class="fontastarisc">*</span></p>
+ <div class="required">
+ <div class="column">
+  <div class="radioBox">
+	<div>
+	    <input type="radio" name="hopeday" value="半年以内" id="two" th:field="*{changejobday}">
+	    <label for="two">半年以内</label>
+	</div>
+	<div>
+	    <input type="radio" name="hopeday" value="1年以内" id="three" th:field="*{changejobday}">
+	    <label for="three">1年以内</label>
+  	</div>
+  	<div>
+	    <input type="radio" name="hopeday" value="良い機会があれば" id="four" th:field="*{changejobday}">
+	    <label for="four">良い機会があれば</label>
+  	</div>
+  	<div>
+	    <input type="radio" name="hopeday" value="今は就職を考えていない" id="five" th:field="*{changejobday}">
+	    <label for="five">今は就職を考えていない</label>
+	</div>
+  </div>
+  <div th:if="${#fields.hasErrors('changejobday')}" th:errors="*{changejobday}" th:errorclass="input-error"></div>
+ </div>
+ </div>
+</div>
+  <input type="submit" class="Form-Btn" value="アカウントを登録する">
+</form>
+
+<!-- import exportの処理にtype="module"が必要 -->
+<script type="module" th:src="@{/js/createAccount.js}"></script>
+</body>
+</html>

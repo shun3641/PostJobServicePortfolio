@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width"> 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=login" />
+<!-- login.css -->
+<link href="/css/header.css" rel="stylesheet" />
+<link href="/css/mailverifications.css" rel="stylesheet" />
+<title>Insert title here</title>
+</head>
+<body>
+    <div th:replace="~{'fragments/header' :: siteHeader}"></div>   
+    <form th:action="@{/user/sendemail/employer}" class="emailform" method="post">
+    <h2 class="">新規会員登録</h2>
+    <div class="box">
+    <div class="maillabel-box">
+    <span class="maillabel">メールアドレス</span>
+    </div>
+    <div class="email-box">
+    <input type="email" id="email-input" name="email">
+    </div>
+    </div>
+    <input type="submit" value="新規会員登録">
+    <div th:text="${dupulicationMessage}" class="message"></div>
+    </form>
+    <form th:action="@{/login}" method="get">
+        <input type="submit" name="login" value="ログイン"/>
+    </form>
+    <script>
+    //外部スクリプトを読み込んだ後に実行
+    document.addEventListener('DOMContentLoaded', () => {
+    	  const emailInput = document.getElementById('email-input');
+    	  emailInput.addEventListener('invalid', (event) => {
+    	    event.target.setCustomValidity('このフィールドには有効なメールアドレスを入力してください。');
+    	  });
+    	  // ユーザーが入力し直した際に、バリデーションメッセージをリセットする
+    	  emailInput.addEventListener('input', (event) => {
+    	    event.target.setCustomValidity('');
+    	  });
+    	});</script>
+</body>
+</html>

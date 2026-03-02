@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=login" />
+<link href="/css/header.css" rel="stylesheet" />
+<link href="/css/userRegister.css" rel="stylesheet" />
+
+<title>企業情報登録</title>
+</head>
+
+<body>
+
+<div th:replace="~{'fragments/header' :: siteHeader}"></div>
+
+<h1>6桁の番号を認証しました。</h1>
+<p>企業情報を入力してください。</p>
+<p th:text="${email}"></p>
+<form class="Form"
+      th:object="${employer}"
+      th:action="@{/employer/create}"
+      method="post">
+      <input type="hidden" th:field="*{email}">
+ <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="input-error"></div>
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>パスワード
+    </p>
+    <div class="column">
+    <div class="required">
+    <input type="password" class="Form-Item-Input" placeholder="" th:field="*{password}" minlength="12">
+     <span class="placeholder required">パスワード<span class="fontastarisc">*</span></span>
+  	</div>
+  	 <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="input-error"></div>
+  	</div>
+  </div>
+  <!-- 会社名 -->
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>会社名
+    </p>
+    <input type="text" class="Form-Item-Input" th:field="*{name}">
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="input-error"></div>
+  </div>
+
+  <!-- 会社名（カナ） -->
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>会社名（カナ）
+    </p>
+    <input type="text" class="Form-Item-Input" th:field="*{name_kana}">
+    <div th:if="${#fields.hasErrors('name_kana')}" th:errors="*{name_kana}" class="input-error"></div>
+  </div>
+
+  <!-- 業種 -->
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>業種
+    </p>
+    <input type="text" class="Form-Item-Input" th:field="*{industry}">
+    <div th:if="${#fields.hasErrors('industry')}" th:errors="*{industry}" class="input-error"></div>
+  </div>
+
+  <!-- 会社概要 -->
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>会社概要
+    </p>
+    <textarea class="Form-Item-Textarea" th:field="*{description}" rows="5"></textarea>
+    <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="input-error"></div>
+  </div>
+
+  <!-- 設立年 -->
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>設立年
+    </p>
+    <input type="number" class="Form-Item-Input" th:field="*{established_year}" placeholder="1800~2100の数字">
+    <div th:if="${#fields.hasErrors('established_year')}" th:errors="*{established_year}" class="input-error"></div>
+  </div>
+
+  <!-- 従業員数 -->
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>従業員数
+    </p>
+    <input type="number" class="Form-Item-Input" th:field="*{employee_count}">
+    <div th:if="${#fields.hasErrors('employee_count')}" th:errors="*{employee_count}" class="input-error"></div>
+  </div>
+
+  <!-- 住所 -->
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>住所
+    </p>
+    <input type="text" class="Form-Item-Input" th:field="*{address}">
+    <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="input-error"></div>
+  </div>
+
+  <!-- Webサイト -->
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">任意</span>Webサイト
+    </p>
+    <input type="url" class="Form-Item-Input" th:field="*{website_url}" 
+    oninvalid="setCustomValidity('正しいURLを入力してください（例: https://example.com）')">
+  </div>
+
+  <!-- 電話番号 -->
+  <div class="Form-Item">
+    <p class="Form-Item-Label">
+      <span class="Form-Item-Label-Required">必須</span>電話番号
+    </p>
+    <input type="tel" class="Form-Item-Input" th:field="*{phone_number}" maxlength="13">
+    <div th:if="${#fields.hasErrors('phone_number')}" th:errors="*{phone_number}" class="input-error"></div>
+  </div>
+
+  <input type="submit" class="Form-Btn" value="企業情報を登録する">
+</form>
+
+
+</body>
+</html>

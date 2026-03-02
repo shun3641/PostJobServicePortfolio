@@ -1,0 +1,56 @@
+@charset "UTF-8";
+.emailform {
+	width: 30%;
+	margin: 0 auto;
+	@media screen and (max-width: 767px) {
+		width: 80%;
+	}
+}
+
+h2 {
+	margin: 30px 0;
+}
+input:not(input[type="submit"]) {
+	width: 100%;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 3px;
+	padding: 3px 0;
+}
+
+input[type="submit"] {
+	display: block;
+	width:80%;
+	margin: 20px auto 0 auto;
+	padding: 10px;
+	background-color: #0d8ebf;
+	border: none;
+	color: white;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	opacity: 0.9;
+}
+.box {
+	display: flex;
+	border: 1px solid rgba(30, 30,30, 0.1);
+	box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.1);
+	margin-top: 10px;
+}
+.maillabel {
+	vertical-align: middle;
+	font-size: 0.85rem;
+}
+.maillabel-box {
+	padding: 10px;
+	background-color: rgba(120, 120, 120, 0.1);
+}
+.email-box {
+	width: 70%;
+	background-color: white;
+	padding: 15px 8px;
+}
+.message {
+	margin-top: 5px;
+	text-align: center;
+}

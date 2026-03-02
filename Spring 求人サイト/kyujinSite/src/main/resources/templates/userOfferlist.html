@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=login" />
+<link href="/css/header.css" rel="stylesheet" />
+<link href="/css/scoutsystem.css" rel="stylesheet" />
+
+<title>Insert title here</title>
+</head>
+<body>
+<div th:replace="~{'fragments/userHeader' :: UserHeader}"></div>
+<h2>オファー一覧</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>会社ID</th>
+            <th>会社名</th>
+            <th>ユーザーID</th>
+            <th>ユーザー名</th>
+            <th>メッセージ</th>
+            <th>ステータス</th>
+            <th>送信日時</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="offer : ${offers}">
+            <td th:text="${offer.companyid}"></td>
+            <td th:text="${offer.companyname}"></td>
+            <td th:text="${offer.userid}"></td>
+            <td th:text="${offer.username}"></td>
+            <td th:text="${offer.message}"></td>
+            <td th:text="${offer.status}"></td>
+            <td th:text="${#temporals.format(offer.sentAt, 'yyyy/MM/dd HH:mm')}"></td>
+            
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
