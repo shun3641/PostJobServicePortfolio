@@ -99,7 +99,7 @@ public class EmployerController {
         // データベースに保存
         employerRepository.save(employer);
 
-        // 成功後はダッシュボードなどへリダイレクト
+        // 成功後は成功画面へリダイレクト
         return "redirect:/user/success";
     }
     
@@ -243,4 +243,5 @@ public class EmployerController {
 	  return "redirect:"+url;
 			  }
 	
+
 }
