@@ -94,10 +94,7 @@ public class UserController {
 		
 			return "register/EmployerInput6Num";
 	}
-	@GetMapping("/register/EmployerInput6Num")
-	public String getEmployerInput6Num() {
-		return "";
-	}
+	
 	@PostMapping("/NumberAuthentication/{isEmployer}")
 	public String UserNumberAuthentication(
 			RedirectAttributes redirectAttributes,
@@ -180,3 +177,4 @@ public class UserController {
 	
 	
 }
+
