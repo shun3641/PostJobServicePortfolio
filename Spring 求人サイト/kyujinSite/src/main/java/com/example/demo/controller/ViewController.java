@@ -111,7 +111,6 @@ public class ViewController {
 			return "register/mailverifications";
 		}
 		
-		//安全にemployerパラメーターを取得 視認性もアップ
 		@GetMapping("/employer/mailverifications")
 		public String mailverifications() {
 
@@ -150,3 +149,4 @@ public class ViewController {
 		
 		
 	}
+
